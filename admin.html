@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>موقع الحجز</title>
+<style>
+body{
+  font-family:Cairo,Arial;
+  background:linear-gradient(135deg,#000000,#000000);
+  padding:40px;
+  color:#fff;
+}
+.container{
+  max-width:500px;
+  margin:auto;
+  background:rgba(255,255,255,0.15);
+  padding:25px;
+  border-radius:20px;
+  text-align:center;
+}
+input,select,button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border-radius:10px;
+  border:none;
+  font-size:16px;
+}
+button{
+  background:#ffcb2d;
+  font-weight:bold;
+  cursor:pointer;
+}
+button:hover{background:#ffdb5c;}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>احجز الآن</h2>
+
+  <input id="name" placeholder="الاسم الثلاثي">
+  <input id="phone" placeholder="رقم الهاتف">
+
+  <select id="service">
+    <option value="">اختر الخدمة</option>
+    <option>كشف</option>
+    <option>استشارة</option>
+    <option>حجز موعد</option>
+  </select>
+
+  <input type="date" id="date">
+  <input type="time" id="time">
+
+  <button onclick="book()">تأكيد الحجز</button>
+</div>
+
+<script>
+function book(){
+  const name = document.getElementById("name").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const service = document.getElementById("service").value;
+  const date = document.getElementById("date").value;
+  const time = document.getElementById("time").value;
+
+  if(!name || !phone || !service || !date || !time){
+    alert("من فضلك اكمل كل البيانات");
+    return;
+  }
+
+  let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+
+  if(bookings.some(b => b.phone === phone)){
+    alert("هذا الرقم قام بالحجز من قبل");
+    return;
+  }
+
+  bookings.push({
+    name, phone, service, date, time,
+    createdAt: new Date().toLocaleString("ar-EG")
+  });
+
+  localStorage.setItem("bookings", JSON.stringify(bookings));
+
+  alert("تم الحجز بنجاح ✅ سنقوم بالتواصل معك");
+
+  document.getElementById("name").value="";
+  document.getElementById("phone").value="";
+  document.getElementById("service").value="";
+  document.getElementById("date").value="";
+  document.getElementById("time").value="";
+}
+</script>
+
+</body>
+</html>

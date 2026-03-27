@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مسابقة الاسرة القرانية</title>
+
+<style>
+*{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:"Cairo", Arial, sans-serif;
+  background: linear-gradient(160deg,#0f766e,#22c55e);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+  color:#fff;
+}
+
+.container{
+  width:100%;
+  max-width:420px;
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(14px);
+  border-radius:22px;
+  padding:25px 20px;
+  box-shadow:0 20px 45px rgba(0,0,0,0.35);
+}
+
+.logo-small{
+  display:block;
+  margin:12px auto 5px;
+  max-width:150px;
+}
+
+h2{
+  text-align:center;
+  font-size:16px;
+  color:#ffeb3b;
+  margin-bottom:18px;
+}
+
+label{
+  display:block;
+  margin-top:14px;
+  font-size:14px;
+  font-weight:bold;
+}
+
+input, select, textarea{
+  width:100%;
+  margin-top:6px;
+  padding:13px;
+  font-size:15px;
+  border-radius:12px;
+  border:none;
+  outline:none;
+}
+
+textarea{ resize:none; }
+
+button{
+  margin-top:22px;
+  width:100%;
+  padding:15px;
+  font-size:17px;
+  font-weight:bold;
+  background: linear-gradient(135deg,#25D366,#1ebe5d);
+  color:#fff;
+  border:none;
+  border-radius:14px;
+  cursor:pointer;
+}
+
+.footer{
+  text-align:center;
+  margin-top:18px;
+  font-size:13px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>نموذج حجز – مسابقة الاسرة القرانيه</h2>
+
+<img src="ChatGPT Image Feb 9, 2026, 07_23_12 PM.png" class="logo-small">
+
+<label>الاسم</label>
+<input type="text" id="location" placeholder="الاسم">
+
+<label>السن</label>
+<input type="text" id="name" placeholder="السن">
+
+<label>الوظيفه</label>
+<input type="number" id="age" placeholder="الوظيفه">
+
+<label>رقم الاهاتف</label>
+<input type="number" id="family" placeholder="رقم الاهاتف">
+
+
+<label>في اي مجال تساعد الجمعيه</label>
+<select id="service">
+<option value=""></option>
+<option>تحفيظ القران</option>
+<option>التعليم</option>
+<option>الصحة</option>
+<option>مساعد ماديه</option>
+<option>تطوع جزي من الوقت...</option>
+<option>اخري....</option>
+</select>
+<label>اضافة ملاحظه</label>
+<textarea id="notes" placeholder="ملاحظات إضافية"></textarea>
+
+<button onclick="sendWhatsApp()">💬 تواصل عبر واتساب</button>
+
+<div class="footer">
+© مسابقة الاسره القرانيه
+©المبرمج/ عبدالرحمن ايهاب مصفي امين
+</div>
+
+</div>
+
+<script>
+function sendWhatsApp(){
+
+const name = document.getElementById("name").value.trim();
+const age = document.getElementById("age").value.trim();
+const phone = document.getElementById("phone").value.trim();
+const service = document.getElementById("service").value;
+const notes = document.getElementById("notes").value.trim();
+const location = document.getElementById("location").value.trim();
+const family = document.getElementById("family").value.trim();
+
+const minAge = 5;
+
+if(!name || !age || !phone){
+alert("من فضلك اكتب الاسم والعمر ورقم الهاتف");
+return;
+}
+
+if(age < minAge){
+alert("عذراً، الحد الأدنى للعمر هو " + minAge + " سنوات");
+return;
+}
+
+const whatsappNumber = "201116271100";
+
+const message =
+`السلام عليكم ورحمة الله وبركاته 🌸
+أرغب في التسجيل، وهذه بياناتي:
+
+الاسم: ${name}
+العمر: ${age}
+الموقع: ${location}
+عدد أفراد الأسرة: ${family}
+أجزاء القرآن: ${service}
+الهاتف: ${phone}
+ملاحظه اضافيه: ${notes || "لا يوجد"}
+
+جزاكم الله خيراً 🤍`;
+
+const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+window.open(url,"_blank");
+}
+</script>
+
+</body>
+</html>
